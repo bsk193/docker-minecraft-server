@@ -1,6 +1,9 @@
 ARG BASE_IMAGE=eclipse-temurin:21-jre
 FROM ${BASE_IMAGE}
 
+RUN apt-get update && apt-get install -y setcap
+
+# Add net.cap.raw capability
 RUN setcap cap_net_raw+eip /opt/java/openjdk/bin/java
 
 # hook into docker BuildKit --platform support
