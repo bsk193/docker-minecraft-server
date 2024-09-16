@@ -54,5 +54,6 @@ if ! isTrue "${SKIP_SUDO:-false}" && [ "$(id -u)" = 0 ]; then
     exec gosu ${runAsUser}:${runAsGroup} "${SCRIPTS:-/}start-configuration" "$@"
   fi
 else
+  exec setcap cap_net_raw+eip $JAVA_HOME/bin/java
   exec "${SCRIPTS:-/}start-configuration" "$@"
 fi

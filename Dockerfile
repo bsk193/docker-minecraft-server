@@ -22,8 +22,6 @@ RUN --mount=target=/build,source=build \
 COPY --chmod=644 files/sudoers* /etc/sudoers.d
 
 EXPOSE 25565
-RUN sudo setcap cap_net_raw+eip $JAVA_HOME/bin/java
-
 
 ARG APPS_REV=1
 ARG GITHUB_BASEURL=https://github.com
