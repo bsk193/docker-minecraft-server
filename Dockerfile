@@ -22,6 +22,8 @@ RUN --mount=target=/build,source=build \
 COPY --chmod=644 files/sudoers* /etc/sudoers.d
 
 EXPOSE 25565
+RUN sudo setcap cap_net_raw+eip $JAVA_HOME/bin/java
+
 
 ARG APPS_REV=1
 ARG GITHUB_BASEURL=https://github.com
@@ -74,9 +76,6 @@ COPY --chmod=755 files/auto /auto
 RUN curl -fsSL -o /image/Log4jPatcher.jar https://github.com/CreeperHost/Log4jPatcher/releases/download/v1.0.1/Log4jPatcher-1.0.1.jar
 
 RUN dos2unix /start* /auto/*
-
-RUN sudo setcap cap_net_raw+eip $JAVA_HOME/bin/java
-
 
 ENTRYPOINT [ "/start" ]
 HEALTHCHECK --start-period=30s --retries=24 --interval=60s CMD mc-health
