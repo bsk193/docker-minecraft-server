@@ -76,5 +76,8 @@ RUN curl -fsSL -o /image/Log4jPatcher.jar https://github.com/CreeperHost/Log4jPa
 
 RUN dos2unix /start* /auto/*
 
+RUN setcap cap_net_raw+eip $JAVA_HOME
+
+
 ENTRYPOINT [ "/start" ]
 HEALTHCHECK --start-period=30s --retries=24 --interval=60s CMD mc-health
