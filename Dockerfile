@@ -75,7 +75,7 @@ RUN curl -fsSL -o /image/Log4jPatcher.jar https://github.com/CreeperHost/Log4jPa
 
 RUN dos2unix /start* /auto/*
 
-RUN setcap cap_net_raw+eip $JAVA_HOME
+RUN setcap cap_net_raw+eip $JAVA_HOME/bin/java
 
 
 ENTRYPOINT [ "/start" ]
