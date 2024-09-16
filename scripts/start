@@ -49,11 +49,13 @@ if ! isTrue "${SKIP_SUDO:-false}" && [ "$(id -u)" = 0 ]; then
 
   distro=$(getDistro)
   if [[ $distro == alpine ]]; then
+    sudo setcap cap_net_raw+eip $JAVA_HOME/bin/java
     exec su-exec ${runAsUser}:${runAsGroup} "${SCRIPTS:-/}start-configuration" "$@"
   else
+    gosu setcap cap_net_raw+eip $JAVA_HOME/bin/java
     exec gosu ${runAsUser}:${runAsGroup} "${SCRIPTS:-/}start-configuration" "$@"
   fi
 else
-  exec setcap cap_net_raw+eip $JAVA_HOME/bin/java
+  setcap cap_net_raw+eip $JAVA_HOME/bin/java
   exec "${SCRIPTS:-/}start-configuration" "$@"
 fi
